@@ -26,10 +26,10 @@ function CreateArea(props) {
   async function submitNote(event) {
     await dkeeper_backend.submit(note)
     // props.onAdd(note);
-    // setNote({
-    //   title: "",
-    //   content: ""
-    // });
+    setNote({
+      title: "",
+      content: ""
+    });
     event.preventDefault();
   }
 
