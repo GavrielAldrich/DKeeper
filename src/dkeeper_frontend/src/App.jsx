@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { dkeeper_backend } from "declarations/dkeeper_backend"
-import Header from "./components/Header"
-import Note from "./components/Note"
-import CreateArea from "./components/CreateArea"
-import Footer from "./components/Footer"
+import { dkeeper_backend } from "declarations/dkeeper_backend";
+import Header from "./components/Header";
+import Note from "./components/Note";
+import CreateArea from "./components/CreateArea";
+import Footer from "./components/Footer";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -30,8 +30,8 @@ function App() {
     <div>
       <Header />
       <CreateArea onAdd={
-        // addNote
-        checkConnect
+        addNote
+        //checkConnect
         } />
       {notes.map((noteItem, index) => {
         return (
