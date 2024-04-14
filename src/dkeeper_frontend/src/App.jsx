@@ -14,22 +14,23 @@ function App() {
       setNotes(initialNotes);
     }
     fetchInitialNotes();
-  }, [])
+  }, []);
 
   function addNote(newNote) {
     setNotes(prevNotes => {
       dkeeper_backend.createNote(newNote.title, newNote.content);
-      return [newNote, ...prevNotes];
+      return [...prevNotes, newNote];
     });
-  }
+  };
 
   function deleteNote(id) {
+    dkeeper_backend.deleteNote(id);
     setNotes(prevNotes => {
       return prevNotes.filter((noteItem, index) => {
         return index !== id;
       });
     });
-  }
+  };
 
   return (
     <div>

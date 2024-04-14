@@ -1,5 +1,6 @@
 import Debug "mo:base/Debug";
 import List "mo:base/List";
+import Buffer "mo:base/Buffer";
 
 actor DKeeper {
 
@@ -8,21 +9,23 @@ actor DKeeper {
     content: Text;
   };
 
-  var notes: List.List<Note> = List.nil<Note>();
+  var notes = Buffer.Buffer<Note>(0);
 
-  public func createNote(titleText: Text, contenctText: Text){
+  public func createNote(titleText: Text, contentText: Text){
     let newNote: Note = {
       title = titleText;
-      content = contenctText;
+      content = contentText;
     };
-
-    notes := List.push(newNote, notes);
-
-    Debug.print(debug_show(notes))
+    notes.add(newNote);
   };
 
     public query func readNotes(): async [Note] {
-      return List.toArray(notes);
+      return Buffer.toArray(notes);
   };
+
+    public func deleteNote(noteId: Nat){
+      let removedData = notes.remove(noteId);
+      Debug.print(debug_show("Removed items:",removedData));
+    };
 };
 
