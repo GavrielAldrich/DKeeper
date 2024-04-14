@@ -14,7 +14,6 @@ function CreateArea(props) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-
     setNote(prevNote => {
       return {
         ...prevNote,
@@ -24,8 +23,7 @@ function CreateArea(props) {
   }
 
   async function submitNote(event) {
-    await dkeeper_backend.submit(note)
-    // props.onAdd(note);
+    props.onAdd(note)
     setNote({
       title: "",
       content: ""

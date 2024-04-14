@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { dkeeper_backend } from "declarations/dkeeper_backend";
 import Header from "./components/Header";
 import Note from "./components/Note";
@@ -8,13 +8,18 @@ import Footer from "./components/Footer";
 function App() {
   const [notes, setNotes] = useState([]);
 
-  async function checkConnect(){
-    await dkeeper_backend.test();
-  }
+  useEffect(()=>{
+    async function fetchInitialNotes(){
+      const initialNotes = await dkeeper_backend.readNotes();
+      setNotes(initialNotes);
+    }
+    fetchInitialNotes();
+  }, [])
 
   function addNote(newNote) {
     setNotes(prevNotes => {
-      return [...prevNotes, newNote];
+      dkeeper_backend.createNote(newNote.title, newNote.content);
+      return [newNote, ...prevNotes];
     });
   }
 
@@ -31,7 +36,6 @@ function App() {
       <Header />
       <CreateArea onAdd={
         addNote
-        //checkConnect
         } />
       {notes.map((noteItem, index) => {
         return (
